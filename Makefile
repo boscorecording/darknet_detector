@@ -1,9 +1,9 @@
-GPU=0
-CUDNN=0
+GPU=1
+CUDNN=1
 CUDNN_HALF=0
-OPENCV=0
+OPENCV=1
 AVX=0
-OPENMP=0
+OPENMP=1
 LIBSO=0
 ZED_CAMERA=0
 ZED_CAMERA_v2_8=0
@@ -19,7 +19,7 @@ DEBUG=0
 
 ARCH= -gencode arch=compute_50,code=[sm_50,compute_50] \
       -gencode arch=compute_52,code=[sm_52,compute_52] \
-	    -gencode arch=compute_61,code=[sm_61,compute_61]
+      -gencode arch=compute_61,code=[sm_61,compute_61]
 
 OS := $(shell uname)
 
@@ -93,7 +93,7 @@ CPP=g++ -std=c++11
 NVCC=nvcc
 OPTS=-Ofast
 LDFLAGS= -lm -pthread
-COMMON= -Iinclude/ -I3rdparty/stb/include
+COMMON= -Iinclude/ -I3rdparty/stb/include -I/usr/local/cuda/include
 CFLAGS=-Wall -Wfatal-errors -Wno-unused-result -Wno-unknown-pragmas -fPIC -rdynamic
 
 ifeq ($(DEBUG), 1)
@@ -122,10 +122,10 @@ endif
 
 ifeq ($(OPENMP), 1)
     ifeq ($(OS),Darwin) #MAC
-	    CFLAGS+= -Xpreprocessor -fopenmp
-	else
-		CFLAGS+= -fopenmp
-	endif
+        CFLAGS+= -Xpreprocessor -fopenmp
+    else
+        CFLAGS+= -fopenmp
+    endif
 LDFLAGS+= -lgomp
 endif
 

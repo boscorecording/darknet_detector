@@ -1162,6 +1162,11 @@ matrix network_predict_data(network net, data test)
     return pred;
 }
 
+void network_predict_gpu(network *net, float *input) {
+    // Function implementation
+}
+
+
 void print_network(network net)
 {
     int i,j;

@@ -1,4 +1,5 @@
 #include "darknet.h"
+#include "data_parallel.c" 
 #include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -16,7 +17,37 @@
 extern void predict_classifier(char *datacfg, char *cfgfile, char *weightfile, char *filename, int top);
 extern void run_voxel(int argc, char **argv);
 extern void run_yolo(int argc, char **argv);
-extern void run_detector(int argc, char **argv);
+/*
+extern void run_detector(int argc, char **argv) {
+    // Ensure the correct number of arguments are passed
+    if (argc < 4) {
+        fprintf(stderr, "usage: %s %s <data> <cfg> <weights>\n", argv[0], argv[1]);
+        return;
+    }
+
+    char *data = argv[2];
+    char *cfg = argv[3];
+    char *weights = argv[4];
+
+    // Load network and weights
+    network *net = load_network(cfg, weights, 0);
+    set_batch_network(net, 1);
+
+    // Load images for testing
+    // You'll need to adapt this to how your images are loaded and processed
+    int n; // number of images
+    image *images = load_images("data/test_images", &n);  // Placeholder for actual image loading function
+
+    // Parameters for data-parallel dispatch
+    int num_cpu_cores = 4;  // Adjust this based on your CPU
+    int use_gpu = 1;        // Set to 0 if you want to run on CPU only
+
+    // Call the data-parallel dispatch function
+    data_parallel_dispatch(net, images, n, num_cpu_cores, use_gpu);
+
+    // Any additional cleanup code here
+};
+*/
 extern void run_coco(int argc, char **argv);
 extern void run_writing(int argc, char **argv);
 extern void run_captcha(int argc, char **argv);

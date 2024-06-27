@@ -14,6 +14,8 @@
 
 #include "darknet.h"
 
+void network_predict_gpu(network *net, float *input);
+
 #include <stdint.h>
 #include "layer.h"
 
